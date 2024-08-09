@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Matching Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            display: flex;
+            gap: 20px;
+        }
+        .column {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .word, .definition {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            cursor: move;
+        }
+        .word.correct, .definition.correct {
+            background-color: #a0ffa0;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="column" id="words">
+            <div class="word" draggable="true" data-word="cohort">cohort</div>
+            <div class="word" draggable="true" data-word="metastasise">metastasise</div>
+            <div class="word" draggable="true" data-word="sobering">sobering</div>
+            <div class="word" draggable="true" data-word="artefact">artefact</div>
+            <div class="word" draggable="true" data-word="sedentary">sedentary</div>
+            <div class="word" draggable="true" data-word="microbiome">microbiome</div>
+            <div class="word" draggable="true" data-word="bafflingly">bafflingly</div>
+            <div class="word" draggable="true" data-word="carcinogen">carcinogen</div>
+            <div class="word" draggable="true" data-word="ingested">ingested</div>
+            <div class="word" draggable="true" data-word="agonise">agonise</div>
+        </div>
+        <div class="column" id="definitions">
+            <div class="definition" data-word="cohort">Nhóm người có chung đặc điểm</div>
+            <div class="definition" data-word="metastasise">Di căn (về ung thư)</div>
+            <div class="definition" data-word="sobering">Khiến người ta tỉnh táo, nghiêm túc</div>
+            <div class="definition" data-word="artefact">Hiện tượng giả tạo, không thật</div>
+            <div class="definition" data-word="sedentary">Ít vận động</div>
+            <div class="definition" data-word="microbiome">Hệ vi sinh vật</div>
+            <div class="definition" data-word="bafflingly">Một cách khó hiểu</div>
+            <div class="definition" data-word="carcinogen">Chất gây ung thư</div>
+            <div class="definition" data-word="ingested">Được hấp thụ, tiêu thụ</div>
+            <div class="definition" data-word="agonise">Lo lắng, đau đầu</div>
+        </div>
+    </div>
+
+    <script>
+        let dragged;
+
+        document.addEventListener("dragstart", function(event) {
+            dragged = event.target;
+        });
+
+        document.addEventListener("dragover", function(event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener("drop", function(event) {
+            event.preventDefault();
+            if (event.target.className === "definition") {
+                if (dragged.dataset.word === event.target.dataset.word) {
+                    dragged.classList.add("correct");
+                    event.target.classList.add("correct");
+                    dragged.draggable = false;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
